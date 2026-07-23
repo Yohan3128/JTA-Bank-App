@@ -1,4 +1,6 @@
 package com.hnys.bank.entity;
 
-public class AccountType {
+public enum AccountType {
+    SAVINGS,
+    CURRENT
 }

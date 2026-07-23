@@ -7,10 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<head>
+    <title>JTA Bank | Dashboard</title>
+</head>
+<body>
+<nav>
+    <a href="home.jsp"></a>
+</nav>
+<div></div>
+</body>
 </html>
