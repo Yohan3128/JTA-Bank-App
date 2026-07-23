@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.hnys.bank.entity.Account" %><%--
   Created by IntelliJ IDEA.
   User: Yohan Silva
   Date: 23/07/2026
@@ -12,8 +13,43 @@
 </head>
 <body>
 <nav>
-    <a href="home.jsp"></a>
+    <a href="dashboard">Dashboard</a>
+    <a href="diposit">Deposit</a>
+    <a href="withdraw">Withdraw</a>
+    <a href="transfer">Transfer</a>
+    <a href="create-account">New Account</a>
+    <a href="logout">Logout</a>
 </nav>
-<div></div>
+
+<div>
+    <h1>Welcome ${sessionScope.userName}</h1>
+    <h2>Your Accounts :</h2>
+
+    <%
+        List<Account> accounts = (List<Account>) request.getAttribute("accounts");
+
+        if (accounts == null || accounts.isEmpty()) {
+    %>
+
+    <p>You don't have any Accounts yet.<a href="create-account">Create New Account</a></p>
+
+    <% } else {
+        for (Account account : accounts) {
+    %>
+    <div>
+        <strong><%= account.getAccNo()%></strong>
+        <br>
+        <div><%= account.getAccountType()%></div>
+        <div>LKR <%= account.getBalance()%></div>
+        <div>
+            <a href="history?accNo=<%= account.getAccNo()%>">View Transaction History</a>
+        </div>
+    </div>
+    <%
+            }
+        }
+    %>
+</div>
+
 </body>
 </html>
