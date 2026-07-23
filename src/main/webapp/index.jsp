@@ -11,6 +11,10 @@
     <title>JTA BANKING APP</title>
 </head>
 <body>
+<H1>Welcome to JTA Bank</H1>
 
+<a href="login.jsp">LOG IN</a>
+<br>
+<a href="register.jsp">REGISTER</a>
 </body>
 </html>
