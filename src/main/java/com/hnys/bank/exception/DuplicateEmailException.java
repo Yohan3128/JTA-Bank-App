@@ -1,4 +1,11 @@
 package com.hnys.bank.exception;
 
-public class DuplicateEmailException {
+import jakarta.ejb.ApplicationException;
+
+@ApplicationException(rollback=true)
+public class DuplicateEmailException extends Exception{
+
+    public DuplicateEmailException(String email){
+        super("An Account already exists with the email "+email);
+    }
 }

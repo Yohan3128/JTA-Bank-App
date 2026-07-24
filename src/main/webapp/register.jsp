@@ -106,9 +106,13 @@
     <%
         if (request.getAttribute("error") != null) {
     %>
-    <p style="color:red;">
-        <%= request.getAttribute("error") %>
-    </p>
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex align-items-center m-4" role="alert">
+        <i class="bi bi-exclamation-triangle-fill fs-4 me-2"></i>
+        <div class="flex-grow-1">
+            <strong>Registration Failed!</strong><br>
+            <%= request.getAttribute("error") %>
+        </div>
+    </div>
     <%
         }
     %>

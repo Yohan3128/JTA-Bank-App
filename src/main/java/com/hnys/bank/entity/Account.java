@@ -7,12 +7,16 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "accounts")
+@NamedQueries({
+        @NamedQuery(name = "Account.findByAccountNo", query = "SELECT a FROM Account a WHERE a.accNo=:accountNo"),
+        @NamedQuery(name = "Account.findByUserEmail", query = "SELECT a FROM Account a WHERE a.user.email=:email ORDER BY a.id")
+})
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String accNo;
 
     private BigDecimal balance;
