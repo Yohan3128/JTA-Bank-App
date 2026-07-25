@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JTA Banking - Login</title>
+    <title>JTA Banking | Login</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -96,11 +96,14 @@
 
         <!-- Error Message -->
         <%
-            if(request.getAttribute("error") != null){
+            if (request.getAttribute("error") != null) {
         %>
-        <div class="alert alert-danger">
-            <i class="bi bi-exclamation-triangle-fill"></i>
-            <%= request.getAttribute("error") %>
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex align-items-center m-4" role="alert">
+            <i class="bi bi-exclamation-triangle-fill fs-4 me-2"></i>
+            <div class="flex-grow-1">
+                <strong>LogIn Failed!</strong><br>
+                <%= request.getAttribute("error") %>
+            </div>
         </div>
         <%
             }

@@ -26,28 +26,65 @@ public class AccountServiceBean implements AccountService {
     private LoginService loginService;
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public void creditToAccount(String accountNo, BigDecimal amount) {
+//        if (amount.compareTo(BigDecimal.ZERO) < 0) {
+        if (amount.doubleValue() <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than zero");
+        }
+
+        try {
+            Account account = em.createNamedQuery("Account.findByAccountNo", Account.class)
+                    .setParameter("accountNo", accountNo)
+                    .getSingleResult();
+
+            account.setBalance(account.getBalance().add(amount));
+
+            em.merge(account);
+
+        } catch (NoResultException e) {
+            throw new EJBException("Account not found: " + accountNo, e);
+        }
 
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public void debitToAccount(String accountNo, BigDecimal amount) throws InsufficientFundException {
 
+        if (amount.doubleValue() <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than zero");
+        }
+
+        try {
+            Account account = em.createNamedQuery("Account.findByAccountNo", Account.class)
+                    .setParameter("accountNo", accountNo)
+                    .getSingleResult();
+
+            if (account.getBalance().subtract(amount).compareTo(BigDecimal.ZERO) <= 0) {
+                throw new InsufficientFundException(accountNo, amount, account.getBalance());
+            }
+            account.setBalance(account.getBalance().subtract(amount));
+            em.merge(account);
+
+        } catch (NoResultException e) {
+            throw new EJBException("Account not found: " + accountNo, e);
+        }
     }
 
     @Override
     public Account findByAccountNo(String accountNo) throws AccountNotFoundException {
         try {
             return em.createNamedQuery("Account.findByAccountNo", Account.class).setParameter("accountNo", accountNo).getSingleResult();
-        }catch(NoResultException nre){
+        } catch (NoResultException nre) {
             throw new AccountNotFoundException(accountNo);
         }
     }
 
     @Override
-    public List<Account> findAccountsByUserEmail(String email) throws AccountNotFoundException {
-        return em.createNamedQuery("Account.findByUserEmail",Account.class)
-                .setParameter("email",email).getResultList();
+    public List<Account> findAccountsByUserEmail(String email){
+        return em.createNamedQuery("Account.findByUserEmail", Account.class)
+                .setParameter("email", email).getResultList();
     }
 
     @Override

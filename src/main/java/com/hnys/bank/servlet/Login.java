@@ -23,9 +23,7 @@ public class Login extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        boolean login = loginService.login(email, password);
-
-        if (login) {
+        if (loginService.login(email, password)) {
 
             User user = loginService.findByEmail(email);
 
@@ -33,8 +31,7 @@ public class Login extends HttpServlet {
             session.setAttribute("user", email);
             session.setAttribute("userName", user.getUsername());
 
-            req.getRequestDispatcher(req.getContextPath()+ "/dashboard").forward(req, resp);
-
+            resp.sendRedirect(req.getContextPath() + "/dashboard");
         }else {
             req.setAttribute("error", "Invalid email or password");
             req.getRequestDispatcher("/login.jsp").forward(req, resp);

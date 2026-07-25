@@ -17,7 +17,7 @@ public interface AccountService {
 
     Account findByAccountNo(String accountNo) throws AccountNotFoundException;
 
-    List<Account> findAccountsByUserEmail(String email) throws AccountNotFoundException;
+    List<Account> findAccountsByUserEmail(String email);
 
     Account createAccount(String email, AccountType type, BigDecimal openingBalance);
 
