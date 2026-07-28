@@ -43,8 +43,8 @@
                 <th>Account No</th>
                 <td>
                     <select name="accountNo" required>
-                        <option value="" disabled>Select Account</option>
-                        <c:forEach var="account" items="${requestScope.accouts}">
+                        <option value="" disabled selected>Select Account</option>
+                        <c:forEach var="account" items="${requestScope.accounts}">
                             <option value="${account.accNo}">${account.accNo}</option>
                         </c:forEach>
                     </select>

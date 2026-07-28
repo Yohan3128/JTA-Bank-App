@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Yohan Silva
@@ -11,160 +13,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JTA Banking | Login</title>
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
-
-    <style>
-        body{
-            margin:0;
-            min-height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            background:linear-gradient(135deg,#0d6efd, #618ecf, #a8b8d1);
-            font-family:"Segoe UI",sans-serif;
-        }
-
-        .login-card{
-            width:100%;
-            max-width:420px;
-            border:none;
-            border-radius:20px;
-            overflow:hidden;
-            box-shadow:0 15px 40px rgba(0,0,0,.25);
-        }
-
-        .card-header{
-            background:#0d6efd;
-            color:#fff;
-            text-align:center;
-            padding:30px;
-        }
-
-        .card-header i{
-            font-size:55px;
-        }
-
-        .card-body{
-            padding:35px;
-        }
-
-        .input-group-text{
-            background:#0d6efd;
-            color:white;
-            border:none;
-        }
-
-        .form-control{
-            height:50px;
-        }
-
-        .btn-login{
-            background:#0d6efd;
-            border:none;
-            height:50px;
-            font-weight:bold;
-            transition:.3s;
-        }
-
-        .btn-login:hover{
-            background:#084298;
-            transform:translateY(-2px);
-        }
-
-        a{
-            text-decoration:none;
-        }
-    </style>
+    <title>JTA Banking | History</title>
 </head>
 <body>
 
-<div class="card login-card">
+<h1>History for ${requestScope.accountNo}</h1>
 
-    <div class="card-header">
-        <i class="bi bi-bank2"></i>
-        <h2 class="mt-2">JTA BANKING</h2>
-        <p class="mb-0">Secure Login</p>
-    </div>
+<table>
+    <tr>
+        <th>Date/Time</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Related Account</th>
+        <th>Balance After</th>
+    </tr>
 
-    <div class="card-body">
+    <c:forEach var="transaction" items="${requestScope.transactions}">
+        <tr>
+            <td>${transaction.timestamp}</td>
+            <td>${transaction.type}</td>
+            <td>
+                <fmt:formatNumber value="${transaction.amount}" type="number" minFractionDigits="2"
+                                  maxFractionDigits="2" groupingUsed="true"/></td>
+            <td>${transaction.relatedAccountNo eq null ? "-":transaction.relatedAccountNo}</td>
+            <td><fmt:formatNumber value="${transaction.balanceAfter}" type="number" minFractionDigits="2"
+                                  maxFractionDigits="2" groupingUsed="true"/></td>
+        </tr>
+    </c:forEach>
 
-        <!-- Error Message -->
-        <%
-            if (request.getAttribute("error") != null) {
-        %>
-        <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex align-items-center m-4" role="alert">
-            <i class="bi bi-exclamation-triangle-fill fs-4 me-2"></i>
-            <div class="flex-grow-1">
-                <strong>LogIn Failed!</strong><br>
-                <%= request.getAttribute("error") %>
-            </div>
-        </div>
-        <%
-            }
-        %>
-
-        <!-- Login Form -->
-        <form action="login" method="post">
-
-            <div class="mb-3">
-                <label class="form-label">Email Address</label>
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <i class="bi bi-envelope-fill"></i>
-                    </span>
-                    <input
-                            type="email"
-                            class="form-control"
-                            name="email"
-                            placeholder="Enter your email"
-                            required>
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <label class="form-label">Password</label>
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <i class="bi bi-lock-fill"></i>
-                    </span>
-                    <input
-                            type="password"
-                            class="form-control"
-                            name="password"
-                            placeholder="Enter your password"
-                            required>
-                </div>
-            </div>
-
-            <div class="d-grid">
-                <button class="btn btn-primary btn-login">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    Login
-                </button>
-            </div>
-
-        </form>
-
-        <hr>
-
-        <div class="text-center">
-            Don't have an account?
-            <a href="register.jsp">
-                <strong>Create Account</strong>
-            </a>
-        </div>
-
-    </div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</table>
 
 </body>
 </html>

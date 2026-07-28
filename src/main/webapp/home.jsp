@@ -42,7 +42,7 @@
         <div><%= account.getAccountType()%></div>
         <div>LKR <%= account.getBalance()%></div>
         <div>
-            <a href="history?accNo=<%= account.getAccNo()%>">View Transaction History</a>
+            <a href="history?accountNo=<%= account.getAccNo()%>">View Transaction History</a>
         </div>
     </div>
     <%

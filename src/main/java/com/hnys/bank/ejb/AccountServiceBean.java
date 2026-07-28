@@ -112,6 +112,6 @@ public class AccountServiceBean implements AccountService {
         int typeCode = (type == AccountType.CURRENT) ? 2 : 1;
         long serial = System.currentTimeMillis() % 100_000_000L;
 
-        return String.format("%03d%d%d08d", branchCode, typeCode, serial);
+        return String.format("%03d%d%08d", branchCode, typeCode, serial);
     }
 }
