@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.hnys.bank.entity.Account" %><%--
   Created by IntelliJ IDEA.
@@ -22,33 +23,46 @@
 </nav>
 
 <div>
-    <h1>Welcome ${sessionScope.userName}</h1>
-    <h2>Your Accounts :</h2>
-
+    <h1>Deposit</h1>
     <%
-        List<Account> accounts = (List<Account>) request.getAttribute("accounts");
-
-        if (accounts == null || accounts.isEmpty()) {
+        if (request.getAttribute("error") != null) {
     %>
-
-    <p>You don't have any Accounts yet.<a href="create-account">Create New Account</a></p>
-
-    <% } else {
-        for (Account account : accounts) {
-    %>
-    <div>
-        <strong><%= account.getAccNo()%></strong>
-        <br>
-        <div><%= account.getAccountType()%></div>
-        <div>LKR <%= account.getBalance()%></div>
-        <div>
-            <a href="history?accNo=<%= account.getAccNo()%>">View Transaction History</a>
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex align-items-center m-4" role="alert">
+        <i class="bi bi-exclamation-triangle-fill fs-4 me-2"></i>
+        <div class="flex-grow-1">
+            <%= request.getAttribute("error") %>
         </div>
     </div>
     <%
-            }
         }
     %>
+
+    <form action="deposit" method="post">
+        <table>
+            <tr>
+                <th>Account No</th>
+                <td>
+                    <select name="accountNo" required>
+                        <option value="" disabled>Select Account</option>
+                        <c:forEach var="account" items="${requestScope.accouts}">
+                            <option value="${account.accNo}">${account.accNo}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>
+                    <input type="number" step="0.01" min="0.01" name="amount" required>
+                </td>
+            </tr> <tr>
+                <th></th>
+                <td>
+                    <input type="submit" value="Deposit">
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>
 
 </body>
