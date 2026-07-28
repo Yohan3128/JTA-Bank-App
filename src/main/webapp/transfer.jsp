@@ -1,272 +1,271 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JTA Banking | Transfer</title>
+        <!DOCTYPE html>
+        <html lang="en">
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>JTA Banking | Transfer</title>
 
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css" rel="stylesheet">
+            <!-- Bootstrap -->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        body{
-            background:#f4f8fc;
-            font-family:"Segoe UI",sans-serif;
-        }
+            <!-- Bootstrap Icons -->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css" rel="stylesheet">
 
-        .navbar{
-            background:linear-gradient(90deg,#0d6efd,#084298);
-            box-shadow:0 3px 10px rgba(0,0,0,.15);
-        }
+            <style>
+                body {
+                    background: #f4f8fc;
+                    font-family: "Segoe UI", sans-serif;
+                }
 
-        .navbar-brand{
-            font-weight:bold;
-        }
+                .navbar {
+                    background: linear-gradient(90deg, #0d6efd, #084298);
+                    box-shadow: 0 3px 10px rgba(0, 0, 0, .15);
+                }
 
-        .nav-link{
-            color:#fff !important;
-            margin-right:10px;
-        }
+                .navbar-brand {
+                    font-weight: bold;
+                }
 
-        .nav-link:hover{
-            color:#dbeafe !important;
-        }
+                .nav-link {
+                    color: #fff !important;
+                    margin-right: 10px;
+                }
 
-        .card{
-            border:none;
-            border-radius:18px;
-            box-shadow:0 10px 25px rgba(0,0,0,.08);
-        }
+                .nav-link:hover {
+                    color: #dbeafe !important;
+                }
 
-        .card-header{
-            background:#0d6efd;
-            color:white;
-            border-radius:18px 18px 0 0 !important;
-            padding:20px;
-        }
+                .card {
+                    border: none;
+                    border-radius: 18px;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+                }
 
-        .form-control,
-        .form-select{
-            height:48px;
-            border-radius:10px;
-        }
+                .card-header {
+                    background: #0d6efd;
+                    color: white;
+                    border-radius: 18px 18px 0 0 !important;
+                    padding: 20px;
+                }
 
-        .input-group-text{
-            background:#0d6efd;
-            color:white;
-            border:none;
-        }
+                .form-control,
+                .form-select {
+                    height: 48px;
+                    border-radius: 10px;
+                }
 
-        .btn-transfer{
-            background:#0d6efd;
-            border:none;
-            height:48px;
-            border-radius:10px;
-            font-weight:600;
-        }
+                .input-group-text {
+                    background: #0d6efd;
+                    color: white;
+                    border: none;
+                }
 
-        .btn-transfer:hover{
-            background:#084298;
-        }
-    </style>
-</head>
-<body>
+                .btn-transfer {
+                    background: #0d6efd;
+                    border: none;
+                    height: 48px;
+                    border-radius: 10px;
+                    font-weight: 600;
+                }
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
+                .btn-transfer:hover {
+                    background: #084298;
+                }
+            </style>
+        </head>
 
-        <a class="navbar-brand" href="dashboard">
-            <i class="bi bi-bank2"></i>
-            JTA BANKING
-        </a>
+        <body>
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container">
 
-        <div class="collapse navbar-collapse" id="navbarMenu">
-
-            <ul class="navbar-nav ms-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link" href="dashboard">
-                        <i class="bi bi-speedometer2"></i>
-                        Dashboard
+                    <a class="navbar-brand" href="dashboard">
+                        <i class="bi bi-bank2"></i>
+                        JTA BANKING
                     </a>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="deposit">
-                        <i class="bi bi-plus-circle"></i>
-                        Deposit
-                    </a>
-                </li>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="withdraw">
-                        <i class="bi bi-dash-circle"></i>
-                        Withdraw
-                    </a>
-                </li>
+                    <div class="collapse navbar-collapse" id="navbarMenu">
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="transfer">
-                        <i class="bi bi-arrow-left-right"></i>
-                        Transfer
-                    </a>
-                </li>
+                        <ul class="navbar-nav ms-auto">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="create-account">
-                        <i class="bi bi-wallet2"></i>
-                        New Account
-                    </a>
-                </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="dashboard">
+                                    <i class="bi bi-speedometer2"></i>
+                                    Dashboard
+                                </a>
+                            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-warning" href="logout">
-                        <i class="bi bi-box-arrow-right"></i>
-                        Logout
-                    </a>
-                </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="deposit">
+                                    <i class="bi bi-plus-circle"></i>
+                                    Deposit
+                                </a>
+                            </li>
 
-            </ul>
+                            <li class="nav-item">
+                                <a class="nav-link" href="withdraw">
+                                    <i class="bi bi-dash-circle"></i>
+                                    Withdraw
+                                </a>
+                            </li>
 
-        </div>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="transfer">
+                                    <i class="bi bi-arrow-left-right"></i>
+                                    Transfer
+                                </a>
+                            </li>
 
-    </div>
-</nav>
+                            <li class="nav-item">
+                                <a class="nav-link" href="create-account">
+                                    <i class="bi bi-wallet2"></i>
+                                    New Account
+                                </a>
+                            </li>
 
-<div class="container py-5">
+                            <li class="nav-item">
+                                <a class="nav-link text-warning" href="logout">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    Logout
+                                </a>
+                            </li>
 
-    <div class="row justify-content-center">
-
-        <div class="col-lg-7">
-
-            <div class="card">
-
-                <div class="card-header">
-                    <h3 class="mb-0">
-                        <i class="bi bi-arrow-left-right"></i>
-                        Transfer Funds
-                    </h3>
-                </div>
-
-                <div class="card-body p-4">
-
-                    <% if(request.getAttribute("error") != null){ %>
-
-                    <div class="alert alert-danger d-flex align-items-center mb-4">
-
-                        <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
-
-                        <div>
-                            <%= request.getAttribute("error") %>
-                        </div>
+                        </ul>
 
                     </div>
 
-                    <% } %>
+                </div>
+            </nav>
 
-                    <form action="transfer" method="post">
+            <div class="container py-5">
 
-                        <!-- Source Account -->
-                        <div class="mb-3">
+                <div class="row justify-content-center">
 
-                            <label class="form-label">
-                                Source Account
-                            </label>
+                    <div class="col-lg-7">
 
-                            <select class="form-select"
-                                    name="sourceAccountNo"
-                                    required>
+                        <div class="card">
 
-                                <option value="" disabled selected>
-                                    Select Source Account
-                                </option>
+                            <div class="card-header">
+                                <h3 class="mb-0">
+                                    <i class="bi bi-arrow-left-right"></i>
+                                    Transfer Funds
+                                </h3>
+                            </div>
 
-                                <c:forEach var="account" items="${requestScope.accounts}">
-                                    <option value="${account.accNo}">
-                                            ${account.accNo}
-                                    </option>
-                                </c:forEach>
+                            <div class="card-body p-4">
 
-                            </select>
+                                <% if (request.getAttribute("error") !=null) { %>
 
-                        </div>
+                                    <div class="alert alert-danger d-flex align-items-center mb-4">
 
-                        <!-- Destination Account -->
-                        <div class="mb-3">
+                                        <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
 
-                            <label class="form-label">
-                                Destination Account
-                            </label>
+                                        <div>
+                                            <%= request.getAttribute("error") %>
+                                        </div>
 
-                            <input class="form-select" type="text"
-                                    name="destinationAccountNo"
-                                    required>
+                                    </div>
 
-                        </div>
+                                    <% } %>
 
-                        <!-- Amount -->
-                        <div class="mb-4">
+                                        <form action="transfer" method="post">
 
-                            <label class="form-label">
-                                Transfer Amount
-                            </label>
+                                            <!-- Source Account -->
+                                            <div class="mb-3">
 
-                            <div class="input-group">
+                                                <label class="form-label">
+                                                    Source Account
+                                                </label>
 
-                                <span class="input-group-text">
-                                    <i class="bi bi-cash-stack"></i>
-                                </span>
+                                                <select class="form-select" name="sourceAccountNo" required>
 
-                                <input
-                                        type="number"
-                                        class="form-control"
-                                        name="amount"
-                                        step="0.01"
-                                        min="0.01"
-                                        placeholder="Enter amount"
-                                        required>
+                                                    <option value="" disabled selected>
+                                                        Select Source Account
+                                                    </option>
+
+                                                    <c:forEach var="account" items="${requestScope.accounts}">
+                                                        <option value="${account.accNo}">
+                                                            ${account.accNo}
+                                                        </option>
+                                                    </c:forEach>
+
+                                                </select>
+
+                                            </div>
+
+                                            <!-- Destination Account -->
+                                            <div class="mb-3">
+
+                                                <label class="form-label">
+                                                    Destination Account
+                                                </label>
+
+                                                <div class="input-group">
+
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-credit-card-2-front"></i>
+                                                    </span>
+
+                                                    <input class="form-control" type="text" name="destinationAccountNo"
+                                                        placeholder="Enter destination account number" required>
+
+                                                </div>
+
+                                            </div>
+
+                                            <!-- Amount -->
+                                            <div class="mb-4">
+
+                                                <label class="form-label">
+                                                    Transfer Amount
+                                                </label>
+
+                                                <div class="input-group">
+
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-cash-stack"></i>
+                                                    </span>
+
+                                                    <input type="number" class="form-control" name="amount" step="0.01"
+                                                        min="0.01" placeholder="Enter amount" required>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="d-grid">
+
+                                                <button class="btn btn-primary btn-transfer">
+
+                                                    <i class="bi bi-send-fill"></i>
+                                                    Transfer Money
+
+                                                </button>
+
+                                            </div>
+
+                                        </form>
 
                             </div>
 
                         </div>
 
-                        <div class="d-grid">
-
-                            <button class="btn btn-primary btn-transfer">
-
-                                <i class="bi bi-send-fill"></i>
-                                Transfer Money
-
-                            </button>
-
-                        </div>
-
-                    </form>
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
-    </div>
+        </body>
 
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>
+        </html>
