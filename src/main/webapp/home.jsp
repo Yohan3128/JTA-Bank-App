@@ -14,7 +14,7 @@
 <body>
 <nav>
     <a href="dashboard">Dashboard</a>
-    <a href="diposit">Deposit</a>
+    <a href="deposit">Deposit</a>
     <a href="withdraw">Withdraw</a>
     <a href="transfer">Transfer</a>
     <a href="create-account">New Account</a>
